@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { login } from "../api";
 
 interface LoginModalProps {
   onClose: () => void;
@@ -10,22 +11,11 @@ export default function LoginModal({ onClose }: LoginModalProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", email, password);
-
-    // Try to call backend (will fail if no backend running)
-    fetch("http://localhost:3001/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        localStorage.setItem("token", data.token);
-      })
-      .catch(() => {
-        // Backend not running — just close the modal
-      });
-
+    // Credentials are never logged. Authentication needs the Track A backend; in
+    // this frontend-only build the call fails gracefully and we just close.
+    login(email, password).catch(() => {
+      // Backend not running — close the modal so the dashboard stays usable.
+    });
     onClose();
   };
 
