@@ -21,6 +21,9 @@ export default function Navbar({ onLoginClick }: NavbarProps) {
         >
           Events
         </Link>
+        <Link to="/ask" className={location.pathname === "/ask" ? "active" : ""}>
+          Ask AI
+        </Link>
         <Link
           to="/users"
           className={location.pathname === "/users" ? "active" : ""}
