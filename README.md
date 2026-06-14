@@ -34,6 +34,15 @@ A single **Events workspace** (`/events`) with:
   deep-linkable at `/events/:id` (shareable, refresh-safe, Esc/back to close).
 - **Export** — CSV (RFC-4180 escaped) and JSON of exactly the rows currently in
   view: *what you see is what you export*.
+- **Overview charts** — events-over-time and a clustered category breakdown
+  (~90 tags grouped into 6 categories), pure CSS, reacting to the active filters.
+- **System-integrity health bar** — a game-style HP gauge (0–100) of how
+  concerned to be about the current view, plus a one-click **triage focus** banner
+  for CRITICAL/HIGH events.
+- **Flag for follow-up** — flag any event (table + drawer); flagged events get a
+  navbar badge and a dedicated **Flagged** tab. Flags persist in `localStorage`.
+- **Ask AI tab** — chat-style analyst-assistant UI (placeholder, not connected).
+- **Dark theme + Matrix boot intro**, and a professional console-style login.
 - **Messy / loading / empty handling** — a simulated async fetch gives real
   loading, error (with **Retry**), and two distinct empty states ("no events at
   all" vs "no matches"). Every record is normalized so malformed data is shown
@@ -90,7 +99,8 @@ src/
 ## Tests
 
 `npm test` runs Vitest over the pure logic where bugs hide: CSV escaping,
-filter/sort/summarize, record normalization, and safe date formatting (35 tests).
+filter/sort/summarize, record normalization, safe date formatting, tag
+categorization, the health score, and flag toggling (52 tests).
 
 ## What I'd do with more time
 
