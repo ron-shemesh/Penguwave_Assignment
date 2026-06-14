@@ -1,158 +1,148 @@
-import { useState } from "react";
-import mockEvents from "../../data/mock_events.json";
-import { SecurityEvent } from "../types";
-import { sanitizeHtml } from "../utils";
+import { useMemo } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useEvents } from "../hooks/useEvents";
+import { useEventQuery } from "../hooks/useEventQuery";
+import { applyQuery, summarize } from "../lib/filtering";
+import SummaryStrip from "../components/SummaryStrip";
+import OverviewCharts from "../components/OverviewCharts";
+import EventFilters from "../components/EventFilters";
+import EventsTable from "../components/EventsTable";
+import ExportButtons from "../components/ExportButtons";
+import EventDetailDrawer from "../components/EventDetailDrawer";
 
+// The single analyst workspace. It owns the wiring only: data comes from
+// useEvents (loading/error/ready), the view (search/filter/sort/selection) lives
+// in the URL via useEventQuery + the :id route param, and every child reads the
+// same derived list — so the summary counts, the table, and the export always
+// agree by construction.
 export default function EventsPage() {
-  const [search, setSearch] = useState("");
-  const [severityFilter, setSeverityFilter] = useState("ALL");
-  const [selectedEvent, setSelectedEvent] = useState<SecurityEvent | null>(null);
+  const { status, events, error, reload } = useEvents();
+  const q = useEventQuery();
+  const { id: selectedId } = useParams<{ id?: string }>();
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
 
-  const events = mockEvents as SecurityEvent[];
+  // Derived (filtered + sorted) list — this is "what you see is what you export".
+  const visible = useMemo(() => applyQuery(events, q.query), [events, q.query]);
+  const summary = useMemo(() => summarize(visible), [visible]);
 
-  const filtered = events.filter((e) => {
-    const matchesSearch =
-      e.title.toLowerCase().includes(search.toLowerCase()) ||
-      e.description.toLowerCase().includes(search.toLowerCase()) ||
-      e.assetHostname.toLowerCase().includes(search.toLowerCase());
-    const matchesSeverity = severityFilter === "ALL" || e.severity === severityFilter;
-    return matchesSearch && matchesSeverity;
-  });
+  // Selection lives in the URL; preserve the active query string when opening or
+  // closing the drawer so filters survive navigation and the view stays shareable.
+  const qs = params.toString();
+  const openEvent = (eventId: string) =>
+    navigate({ pathname: `/events/${encodeURIComponent(eventId)}`, search: qs });
+  const closeEvent = () => navigate({ pathname: "/events", search: qs });
 
-  const severityColor = (s: string) => {
-    if (s === "HIGH") return "red";
-    if (s === "MEDIUM") return "orange";
-    return "green";
-  };
+  // Resolve the deep-linked id against the full loaded list (not the filtered
+  // one) so a shared link opens even when it falls outside the current filters.
+  const selectedEvent = selectedId ? events.find((e) => e.id === selectedId) ?? null : null;
+
+  if (status === "loading") {
+    return (
+      <div className="page-container">
+        <h1>Security Events</h1>
+        <div className="state-panel" role="status" aria-live="polite">
+          <div className="spinner" />
+          <p>Loading events…</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <div className="page-container">
+        <h1>Security Events</h1>
+        <div className="state-panel state-error" role="alert">
+          <p>{error}</p>
+          <button className="btn-primary" onClick={reload}>
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const noDataAtAll = events.length === 0;
+  const noMatches = !noDataAtAll && visible.length === 0;
 
   return (
     <div className="page-container">
-      <h1>Security Events</h1>
-
-      <div style={{ marginBottom: 16, display: "flex", gap: 12, alignItems: "center" }}>
-        <input
-          type="text"
-          placeholder="Search events..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{ width: "100%", maxWidth: 400 }}
-        />
-        <select
-          value={severityFilter}
-          onChange={(e) => setSeverityFilter(e.target.value)}
-          style={{ width: 140 }}
-        >
-          <option value="ALL">All Severities</option>
-          <option value="HIGH">High</option>
-          <option value="MEDIUM">Medium</option>
-          <option value="LOW">Low</option>
-        </select>
+      <div className="events-header">
+        <h1>Security Events</h1>
+        <ExportButtons events={visible} />
       </div>
 
-      {search && (
-        <p>
-          <span
-            dangerouslySetInnerHTML={{
-              __html: sanitizeHtml("Showing results for: <strong>" + search + "</strong>"),
-            }}
+      {noDataAtAll ? (
+        <div className="state-panel">
+          <p>No events have been recorded yet.</p>
+        </div>
+      ) : (
+        <>
+          {(() => {
+            const urgent = summary.bySeverity.CRITICAL + summary.bySeverity.HIGH;
+            const onlyUrgent =
+              q.query.severities.length > 0 &&
+              q.query.severities.every((s) => s === "CRITICAL" || s === "HIGH");
+            if (urgent === 0 || onlyUrgent) return null;
+            return (
+              <button
+                className="triage-banner"
+                onClick={() => q.setSeverities(["CRITICAL", "HIGH"])}
+              >
+                <span className="triage-dot" />
+                <strong>{urgent}</strong> high-priority event{urgent === 1 ? "" : "s"} need triage
+                <span className="triage-cta">Focus →</span>
+              </button>
+            );
+          })()}
+
+          <SummaryStrip
+            summary={summary}
+            activeSeverities={q.query.severities}
+            onSeverityClick={q.toggleSeverity}
+            onTagClick={q.setTag}
+            onHostClick={q.setHost}
           />
-          {" "}({filtered.length} events)
-        </p>
+
+          <OverviewCharts events={visible} />
+
+          <EventFilters q={q} />
+
+          {noMatches ? (
+            <div className="state-panel">
+              <p>No events match the current filters.</p>
+              <button className="btn-primary" onClick={q.clear}>
+                Clear filters
+              </button>
+            </div>
+          ) : (
+            <EventsTable
+              events={visible}
+              sortField={q.query.sortField}
+              sortDirection={q.query.sortDirection}
+              onSort={q.setSort}
+              onSelect={openEvent}
+              selectedId={selectedId ?? null}
+            />
+          )}
+        </>
       )}
 
-      <table>
-        <thead>
-          <tr>
-            <th>Severity</th>
-            <th>Title</th>
-            <th>Asset</th>
-            <th>Source IP</th>
-            <th>Timestamp</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filtered.map((event) => (
-            <tr
-              key={event.id}
-              onClick={() => setSelectedEvent(event)}
-              style={{ cursor: "pointer" }}
-            >
-              <td style={{ color: severityColor(event.severity), fontWeight: 600 }}>
-                {event.severity}
-              </td>
-              <td>{event.title}</td>
-              <td style={{ fontFamily: "monospace", fontSize: 13 }}>
-                {event.assetHostname}
-              </td>
-              <td style={{ fontFamily: "monospace", fontSize: 13 }}>
-                {event.sourceIp}
-              </td>
-              <td style={{ fontSize: 13 }}>
-                {new Date(event.timestamp).toLocaleString()}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {filtered.length === 0 && <p style={{ color: "#999" }}>No events found.</p>}
-
-      <div style={{ marginTop: 12 }}>
-        <button
-          onClick={() => {
-            const blob = new Blob([JSON.stringify(filtered, null, 2)], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "penguwave_events_export.json";
-            a.click();
-            URL.revokeObjectURL(url);
+      {selectedId && (
+        <EventDetailDrawer
+          event={selectedEvent}
+          requestedId={selectedId}
+          onClose={closeEvent}
+          onTagClick={(tag) => {
+            q.setTag(tag);
+            closeEvent();
           }}
-          style={{ fontSize: 13 }}
-        >
-          Export Events (JSON)
-        </button>
-      </div>
-
-      {/* Inline event detail */}
-      {selectedEvent && (
-        <div className="event-detail">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <h2>{selectedEvent.title}</h2>
-            <button onClick={() => setSelectedEvent(null)} style={{ cursor: "pointer" }}>
-              Close
-            </button>
-          </div>
-          <p>
-            <strong>Severity:</strong>{" "}
-            <span style={{ color: severityColor(selectedEvent.severity) }}>
-              {selectedEvent.severity}
-            </span>
-          </p>
-          <p>
-            <strong>Description:</strong>
-          </p>
-          {/* render rich text descriptions */}
-          <div
-            ref={(el) => {
-              if (el) el.innerHTML = sanitizeHtml(selectedEvent.description);
-            }}
-          />
-          <p>
-            <strong>Asset:</strong> {selectedEvent.assetHostname} ({selectedEvent.assetIp})
-          </p>
-          <p>
-            <strong>Source IP:</strong> {selectedEvent.sourceIp}
-          </p>
-          <p>
-            <strong>Tags:</strong> {selectedEvent.tags.join(", ")}
-          </p>
-          <p>
-            <strong>Timestamp:</strong> {new Date(selectedEvent.timestamp).toLocaleString()}
-          </p>
-          <h3>Raw Event Data</h3>
-          <pre>{JSON.stringify(selectedEvent, null, 2)}</pre>
-        </div>
+          onHostClick={(host) => {
+            q.setHost(host);
+            closeEvent();
+          }}
+        />
       )}
     </div>
   );
