@@ -3,6 +3,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useEvents } from "../hooks/useEvents";
 import { useEventQuery } from "../hooks/useEventQuery";
 import { applyQuery, summarize } from "../lib/filtering";
+import HealthBar from "../components/HealthBar";
 import SummaryStrip from "../components/SummaryStrip";
 import OverviewCharts from "../components/OverviewCharts";
 import EventFilters from "../components/EventFilters";
@@ -72,6 +73,8 @@ export default function EventsPage() {
         <h1>Security Events</h1>
         <ExportButtons events={visible} />
       </div>
+
+      <HealthBar events={visible} />
 
       {noDataAtAll ? (
         <div className="state-panel">

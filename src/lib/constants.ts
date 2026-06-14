@@ -22,6 +22,7 @@ export const STORAGE_KEYS = {
   token: "token",
   role: "role",
   loginDismissed: "login-dismissed",
+  introShown: "pw-intro-shown",
 } as const;
 
 // Simulated network latency for the mock data service (ms).

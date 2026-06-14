@@ -1245,3 +1245,143 @@ label {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* ===========================================================================
+   System integrity health bar (video-game style)
+   =========================================================================== */
+.health-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.health-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.health-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.health-level {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.health-track {
+  position: relative;
+  height: 22px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.health-fill {
+  display: block;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease;
+  /* faint inner sheen so it reads like an HP/energy bar */
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.25);
+}
+
+.health-hp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #f5f8ff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  letter-spacing: 0.04em;
+}
+
+.health-foot {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.health-critical {
+  border-color: #ff4136;
+  animation: health-alarm 1.6s ease-in-out infinite;
+}
+
+@keyframes health-alarm {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 65, 54, 0); }
+  50% { box-shadow: 0 0 14px 0 rgba(255, 65, 54, 0.45); }
+}
+
+/* ===========================================================================
+   Matrix boot intro
+   =========================================================================== */
+.matrix-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: #080e16;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.matrix-intro.fading {
+  opacity: 0;
+}
+
+.matrix-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.matrix-brand {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.matrix-logo {
+  font-size: 40px;
+  font-weight: 800;
+  color: #d6ffe2;
+  text-shadow: 0 0 18px rgba(54, 211, 107, 0.8);
+  letter-spacing: 0.04em;
+}
+
+.matrix-tagline {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  color: #36d36b;
+  text-shadow: 0 0 10px rgba(54, 211, 107, 0.7);
+}
+
+.matrix-skip {
+  margin-top: 18px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #2f8f4e;
+}
