@@ -1399,26 +1399,25 @@ label {
 }
 
 .flag-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 15px;
-  line-height: 1;
-  padding: 4px;
+  padding: 5px;
   border-radius: 4px;
-  opacity: 0.35;
-  filter: grayscale(1);
-  transition: opacity 0.15s ease, filter 0.15s ease, transform 0.1s ease;
+  color: var(--text-dim);
+  transition: color 0.15s ease, background 0.15s ease, transform 0.1s ease;
 }
 
 .flag-btn:hover {
-  opacity: 0.8;
+  color: var(--text);
   background: var(--surface-2);
 }
 
 .flag-btn.flagged {
-  opacity: 1;
-  filter: none;
+  color: #ff4136;
 }
 
 .flag-btn:active {
@@ -1429,10 +1428,6 @@ label {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.drawer-actions .flag-btn {
-  font-size: 18px;
 }
 
 .nav-badge {
