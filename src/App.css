@@ -45,7 +45,7 @@ body {
 }
 
 .navbar-links a.active {
-  color: #0066cc;
+  color: #1faa50;
   font-weight: 600;
   text-decoration: underline;
 }
@@ -122,7 +122,7 @@ label {
 
 /* Buttons */
 .btn-primary {
-  background: #0066cc;
+  background: #1faa50;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -244,7 +244,7 @@ label {
 
 .export-buttons button:hover:not(:disabled) {
   background: #f0f4f8;
-  border-color: #0066cc;
+  border-color: #1faa50;
 }
 
 .export-buttons button:disabled {
@@ -276,7 +276,7 @@ label {
 .summary-num {
   font-size: 34px;
   font-weight: 700;
-  color: #0a2540;
+  color: #c6f8d3;
   line-height: 1;
 }
 
@@ -313,8 +313,8 @@ label {
 }
 
 .severity-bar-row.active {
-  border-color: #0066cc;
-  background: #eef5ff;
+  border-color: #1faa50;
+  background: #0c3a1f;
 }
 
 .severity-bar-label {
@@ -393,7 +393,7 @@ label {
 
 .facet-chip:hover {
   background: #e2ebf5;
-  border-color: #0066cc;
+  border-color: #1faa50;
 }
 
 .facet-chip-count {
@@ -429,7 +429,7 @@ label {
 }
 
 .charts-toggle:hover {
-  color: #0a2540;
+  color: #c6f8d3;
 }
 
 .charts-toggle-caret {
@@ -486,7 +486,7 @@ label {
 
 .timeline-bar-fill {
   width: 100%;
-  background: #0066cc;
+  background: #1faa50;
   border-radius: 3px 3px 0 0;
   min-height: 2px;
   transition: height 0.2s ease;
@@ -584,12 +584,12 @@ label {
 }
 
 .chip-toggle:hover {
-  border-color: #0066cc;
+  border-color: #1faa50;
 }
 
 .chip-toggle.active {
-  background: #0066cc;
-  border-color: #0066cc;
+  background: #1faa50;
+  border-color: #1faa50;
   color: white;
 }
 
@@ -604,12 +604,12 @@ label {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #eef5ff;
-  border: 1px solid #cfe0fb;
+  background: #0c3a1f;
+  border: 1px solid #1f6b3c;
   border-radius: 4px;
   padding: 3px 8px;
   font-size: 12px;
-  color: #0a2540;
+  color: #c6f8d3;
 }
 
 .active-filter button {
@@ -624,13 +624,13 @@ label {
 }
 
 .active-filter button:hover {
-  color: #0a2540;
+  color: #c6f8d3;
 }
 
 .clear-all {
   background: none;
   border: none;
-  color: #0066cc;
+  color: #1faa50;
   font-size: 12px;
   cursor: pointer;
   text-decoration: underline;
@@ -665,17 +665,17 @@ label {
 }
 
 .th-sort:hover {
-  color: #0066cc;
+  color: #1faa50;
 }
 
 .th-sort.active {
-  color: #0a2540;
+  color: #c6f8d3;
   font-weight: 700;
 }
 
 .sort-indicator {
   font-size: 10px;
-  color: #0066cc;
+  color: #1faa50;
 }
 
 .event-row {
@@ -687,12 +687,12 @@ label {
 }
 
 .event-row.selected {
-  background: #eef5ff;
+  background: #0c3a1f;
 }
 
 .cell-title {
   font-weight: 500;
-  color: #1a2b3c;
+  color: #c6f8d3;
   max-width: 460px;
 }
 
@@ -743,7 +743,7 @@ label {
   width: 28px;
   height: 28px;
   border: 3px solid #e2e8f0;
-  border-top-color: #0066cc;
+  border-top-color: #1faa50;
   border-radius: 50%;
   margin: 0 auto 12px;
   animation: spin 0.8s linear infinite;
@@ -809,7 +809,7 @@ label {
 
 .drawer-title {
   font-size: 19px;
-  color: #0a2540;
+  color: #c6f8d3;
   margin-bottom: 18px;
   line-height: 1.3;
 }
@@ -885,7 +885,7 @@ label {
 .link-button {
   background: none;
   border: none;
-  color: #0066cc;
+  color: #1faa50;
   cursor: pointer;
   font: inherit;
   padding: 0;
@@ -894,7 +894,7 @@ label {
 }
 
 .link-button:hover {
-  color: #004a99;
+  color: #0f7a37;
 }
 
 .link-danger {
@@ -941,7 +941,7 @@ label {
   --border: #2b3a52;
   --text: #e6edf6;
   --text-dim: #93a3b8;
-  --accent: #4f8cff;
+  --accent: #36d36b;
 }
 
 body {
@@ -1016,7 +1016,7 @@ td {
   background: var(--surface-2);
 }
 .event-row.selected {
-  background: #1d2c46;
+  background: #0c3a1f;
 }
 .cell-title {
   color: var(--text);
@@ -1069,7 +1069,7 @@ label {
   background: var(--surface-2);
 }
 .severity-bar-row.active {
-  background: #1d2c46;
+  background: #0c3a1f;
   border-color: var(--accent);
 }
 .facet-chip {
@@ -1078,7 +1078,7 @@ label {
   color: var(--text);
 }
 .facet-chip:hover {
-  background: #26344a;
+  background: #0e3a20;
   border-color: var(--accent);
 }
 .timeline-label {
@@ -1092,9 +1092,9 @@ label {
   color: var(--text-dim);
 }
 .active-filter {
-  background: #14233d;
-  border-color: #294a78;
-  color: #cfe0fb;
+  background: #082416;
+  border-color: #1f6b3c;
+  color: #1f6b3c;
 }
 
 /* State panels */
@@ -1125,7 +1125,7 @@ label {
   color: var(--text);
 }
 .export-buttons button:hover:not(:disabled) {
-  background: #26344a;
+  background: #0e3a20;
   border-color: var(--accent);
 }
 
@@ -1223,7 +1223,7 @@ label {
 }
 .ai-msg-user {
   align-self: flex-end;
-  background: #1d2c46;
+  background: #0c3a1f;
 }
 .ai-msg-assistant {
   align-self: flex-start;
@@ -1444,4 +1444,172 @@ label {
   background: #d92d20;
   border-radius: 9px;
   vertical-align: middle;
+}
+
+/* ===========================================================================
+   Matrix theme — green-on-black palette, monospace type, subtle glow.
+   Repoints the CSS variables (so everything built on them turns green) and
+   tunes the few spots that need explicit treatment.
+   =========================================================================== */
+:root {
+  --bg: #020805;
+  --surface: #05160d;
+  --surface-2: #082613;
+  --border: #124a2a;
+  --text: #c6f8d3;
+  --text-dim: #57b377;
+  --accent: #36d36b;
+}
+
+body {
+  font-family: ui-monospace, SFMono-Regular, Menlo, "Cascadia Code", "Roboto Mono", monospace;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Faint scanning-grid backdrop for the whole console */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1; /* sits behind all content; shows through transparent gaps only */
+  background-image:
+    linear-gradient(rgba(54, 211, 107, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(54, 211, 107, 0.04) 1px, transparent 1px);
+  background-size: 100% 3px, 40px 100%;
+}
+
+/* Glow accents */
+.navbar {
+  border-bottom-color: var(--border);
+  box-shadow: 0 1px 0 rgba(54, 211, 107, 0.18);
+}
+.navbar-brand {
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(54, 211, 107, 0.55);
+}
+.navbar-links a.active {
+  color: var(--accent);
+  text-shadow: 0 0 6px rgba(54, 211, 107, 0.5);
+}
+.page-container h1,
+.events-header h1 {
+  color: var(--text);
+  text-shadow: 0 0 8px rgba(54, 211, 107, 0.25);
+}
+
+/* Primary buttons: green fill, dark text — terminal style */
+.btn-primary {
+  background: var(--accent);
+  color: #02140a;
+  font-weight: 700;
+  border-radius: 4px;
+}
+.btn-primary:hover {
+  background: #4cee86;
+}
+
+/* Active filter chip */
+.chip-toggle.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #02140a;
+}
+
+/* Bars in the dashboard accent green */
+.timeline-bar-fill {
+  background: var(--accent);
+}
+
+/* ===========================================================================
+   Login modal — professional console sign-in
+   =========================================================================== */
+.login-modal {
+  max-width: 380px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 0 40px rgba(54, 211, 107, 0.12), 0 18px 50px rgba(0, 0, 0, 0.55);
+}
+
+.login-header {
+  padding: 26px 28px 18px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(54, 211, 107, 0.08), transparent);
+}
+
+.login-lockmark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--accent);
+  margin-bottom: 12px;
+  box-shadow: 0 0 12px rgba(54, 211, 107, 0.25) inset;
+}
+
+.login-modal h2 {
+  font-size: 19px;
+  margin: 0 0 4px;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.login-sub {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.login-body {
+  padding: 22px 28px 26px;
+}
+
+.login-field {
+  margin-bottom: 16px;
+}
+
+.login-field label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.login-field input {
+  margin-top: 0;
+}
+
+.login-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(54, 211, 107, 0.18);
+}
+
+.login-submit {
+  width: 100%;
+  margin-top: 4px;
+  padding: 10px;
+}
+
+.login-foot {
+  margin-top: 16px;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.login-modal .modal-close {
+  color: var(--text-dim);
+}
+.login-modal .modal-close:hover {
+  color: var(--text);
 }
