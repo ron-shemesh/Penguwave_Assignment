@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import type { SecurityEvent } from "../types";
 import { formatTimestamp } from "../lib/format";
 import SeverityBadge from "./SeverityBadge";
+import FlagButton from "./FlagButton";
 
 interface EventDetailDrawerProps {
   // The resolved event, or null when the id in the URL matches nothing.
@@ -44,9 +45,12 @@ export default function EventDetailDrawer({
           <>
             <div className="drawer-header">
               <SeverityBadge severity={event.severity} />
-              <button className="drawer-close" onClick={onClose} aria-label="Close details">
-                ✕
-              </button>
+              <div className="drawer-actions">
+                <FlagButton eventId={event.id} />
+                <button className="drawer-close" onClick={onClose} aria-label="Close details">
+                  ✕
+                </button>
+              </div>
             </div>
 
             <h2 className="drawer-title">{event.title}</h2>

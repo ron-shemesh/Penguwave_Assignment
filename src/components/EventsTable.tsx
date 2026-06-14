@@ -2,6 +2,7 @@ import type { SecurityEvent } from "../types";
 import type { SortDirection, SortField } from "../lib/filtering";
 import { formatTimestamp, relativeTime } from "../lib/format";
 import SeverityBadge from "./SeverityBadge";
+import FlagButton from "./FlagButton";
 
 interface Column {
   field: SortField;
@@ -39,6 +40,7 @@ export default function EventsTable({
     <table className="events-table">
       <thead>
         <tr>
+          <th className="th-flag" aria-label="Flag" />
           {COLUMNS.map((col) => {
             const active = sortField === col.field;
             return (
@@ -74,6 +76,9 @@ export default function EventsTable({
               }
             }}
           >
+            <td className="cell-flag">
+              <FlagButton eventId={event.id} />
+            </td>
             <td>
               <SeverityBadge severity={event.severity} />
             </td>

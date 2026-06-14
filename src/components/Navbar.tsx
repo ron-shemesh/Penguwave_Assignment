@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { useFlags } from "../hooks/useFlags";
 
 interface NavbarProps {
   onLoginClick: () => void;
@@ -6,6 +7,7 @@ interface NavbarProps {
 
 export default function Navbar({ onLoginClick }: NavbarProps) {
   const location = useLocation();
+  const { count } = useFlags();
 
   return (
     <nav className="navbar">
@@ -20,6 +22,10 @@ export default function Navbar({ onLoginClick }: NavbarProps) {
           className={location.pathname.startsWith("/events") ? "active" : ""}
         >
           Events
+        </Link>
+        <Link to="/flagged" className={location.pathname === "/flagged" ? "active" : ""}>
+          Flagged
+          {count > 0 && <span className="nav-badge">{count}</span>}
         </Link>
         <Link to="/ask" className={location.pathname === "/ask" ? "active" : ""}>
           Ask AI

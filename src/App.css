@@ -1385,3 +1385,68 @@ label {
   letter-spacing: 0.18em;
   color: #2f8f4e;
 }
+
+/* ===========================================================================
+   Flagging (flag column, flag button, navbar badge)
+   =========================================================================== */
+.th-flag {
+  width: 40px;
+}
+
+.cell-flag {
+  width: 40px;
+  text-align: center;
+}
+
+.flag-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 4px;
+  border-radius: 4px;
+  opacity: 0.35;
+  filter: grayscale(1);
+  transition: opacity 0.15s ease, filter 0.15s ease, transform 0.1s ease;
+}
+
+.flag-btn:hover {
+  opacity: 0.8;
+  background: var(--surface-2);
+}
+
+.flag-btn.flagged {
+  opacity: 1;
+  filter: none;
+}
+
+.flag-btn:active {
+  transform: scale(0.85);
+}
+
+.drawer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-actions .flag-btn {
+  font-size: 18px;
+}
+
+.nav-badge {
+  display: inline-block;
+  margin-left: 6px;
+  min-width: 18px;
+  padding: 0 5px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #d92d20;
+  border-radius: 9px;
+  vertical-align: middle;
+}

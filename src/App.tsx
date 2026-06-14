@@ -6,6 +6,7 @@ import MatrixIntro from "./components/MatrixIntro";
 import EventsPage from "./pages/EventsPage";
 import UsersPage from "./pages/UsersPage";
 import AskAiPage from "./pages/AskAiPage";
+import FlaggedPage from "./pages/FlaggedPage";
 import NotFound from "./pages/NotFound";
 import { STORAGE_KEYS } from "./lib/constants";
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/events" element={<EventsPage />} />
           {/* Same workspace; the :id opens the detail drawer (deep-linkable). */}
           <Route path="/events/:id" element={<EventsPage />} />
+          <Route path="/flagged" element={<FlaggedPage />} />
           <Route path="/ask" element={<AskAiPage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="*" element={<NotFound />} />
